@@ -1,0 +1,20 @@
+name: Auto Sync
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: TobKed/github-forks-sync-action@master
+        with:
+          github_token: ${{ secrets.UPSTREAM_SYNC_TOKEN }}
+          upstream_repository: unocss/unocss/tree/main/docs
+          upstream_branch: main
+          target_repository: watonyweng/unocss-docs-cn
+          target_branch: upstream
+          force: false
+          tags: false
